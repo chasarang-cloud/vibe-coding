@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="1부터 45까지의 번호로 매주 100장을 구매하는 로또 시뮬레이터" />
+  <title>행운 연구소 | 로또 시뮬레이션</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Nanum+Myeongjo:wght@700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <p class="eyebrow">LUCK LAB · LOTTO 6/45</p>
+      <div>
+        <h1>행운은,<br /><em>계산해 볼 수 있다.</em></h1>
+        <p class="hero-copy">나만의 번호 한 장과 자동 번호 99장. 매주 100장의 작은 가능성을 기록해 보세요.</p>
+      </div>
+      <div class="hero-rule"><span>매주</span><strong>100장</strong><span>구매</span></div>
+    </header>
+
+    <section class="control-grid" aria-label="시뮬레이션 설정">
+      <article class="card picker-card">
+        <div class="section-heading">
+          <div><p class="step">01 / YOUR NUMBERS</p><h2>기준 번호를 골라주세요</h2></div>
+          <span id="selection-count" class="count-badge">0 / 6</span>
+        </div>
+        <p class="hint">이 조합은 매주 첫 번째 티켓으로 구매됩니다.</p>
+        <div id="number-picker" class="number-picker" aria-label="번호 선택"></div>
+        <div class="picker-actions">
+          <button id="randomize-button" class="text-button" type="button">행운 번호 자동 선택</button>
+          <button id="clear-selection-button" class="text-button muted" type="button">선택 지우기</button>
+        </div>
+      </article>
+
+      <article class="card run-card">
+        <p class="step">02 / RUN SIMULATION</p>
+        <h2>얼마나 긴 여정을<br />돌아볼까요?</h2>
+        <label for="week-input">실행할 주 수</label>
+        <div class="week-input-wrap">
+          <input id="week-input" type="number" min="1" max="10000" value="52" inputmode="numeric" />
+          <span>주</span>
+        </div>
+        <p class="microcopy">1주당 100,000원 · 최대 10,000주</p>
+        <button id="run-button" class="run-button" type="button" disabled>
+          <span>시뮬레이션 시작</span><span aria-hidden="true">→</span>
+        </button>
+        <p id="validation-message" class="validation-message" aria-live="polite">번호 6개를 선택하면 시작할 수 있어요.</p>
+      </article>
+    </section>
+
+    <section class="summary-section" aria-labelledby="summary-title">
+      <div class="summary-header">
+        <div><p class="step">THE LEDGER</p><h2 id="summary-title">내 행운의 장부</h2></div>
+        <button id="reset-button" class="reset-button" type="button">기록 초기화</button>
+      </div>
+      <div class="metrics">
+        <article class="metric"><span>누적 회차</span><strong id="total-weeks">0</strong><small>주</small></article>
+        <article class="metric"><span>구매한 티켓</span><strong id="total-tickets">0</strong><small>장</small></article>
+        <article class="metric money"><span>총 구매 금액</span><strong id="total-spent">₩0</strong></article>
+        <article class="metric money accent"><span>총 당첨 금액</span><strong id="total-won">₩0</strong></article>
+        <article class="metric money balance"><span>현재 손익</span><strong id="net-result">₩0</strong></article>
+      </div>
+      <div class="rank-grid" id="rank-grid" aria-label="등수별 당첨 현황"></div>
+    </section>
+
+    <section class="history-section" aria-labelledby="history-title">
+      <div class="history-heading"><div><p class="step">RECENT DRAWS</p><h2 id="history-title">최근의 추첨 기록</h2></div><p>최근 20주</p></div>
+      <div id="history-list" class="history-list">
+        <div class="empty-state">아직 기록이 없어요. 번호를 고르고 첫 추첨을 시작해 보세요.</div>
+      </div>
+    </section>
+  </main>
+
+  <template id="history-template">
+    <article class="history-item">
+      <div class="draw-meta"><span class="draw-week"></span><span class="draw-date"></span></div>
+      <div class="draw-numbers"><span class="draw-label">당첨 번호</span><div class="winning-balls"></div><span class="bonus-separator">+</span><div class="bonus-ball"></div></div>
+      <div class="draw-result"></div>
+    </article>
+  </template>
+  <script src="app.js"></script>
+</body>
+</html>
